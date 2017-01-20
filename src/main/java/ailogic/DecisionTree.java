@@ -48,12 +48,15 @@ public class DecisionTree {
 
     public void buildNodeTable()
     {
+        System.out.println("Starting Node is "); displayBoard(queue.peek());
         HashMap<Integer, HashSet<Node>> marker = new HashMap<Integer, HashSet<Node>>(); //this is just used to keep track.. better way to do this ?
         int lenToCheck = 3;
         while(!queue.isEmpty() && MAX_TREE_LEVEL > 0 && Tree.wins.isEmpty())
         {
             Node current = queue.remove();
             if(current.isVisited()) continue;
+            //if we have just one spot left, remove all after number we are checking for
+            sortQueue(current);
             //System.out.println("---------------------------------------------------------\n---------------------------------------------------------\n---------------------------------------------------------\nNew Child");
             buildChildNodeTable(current);
             if(marker.containsKey(current.getNodeId()))
@@ -75,6 +78,22 @@ public class DecisionTree {
             }
             displayTree(current);
             current.markVisited();
+        }
+    }
+
+    public void sortQueue(Node current)
+    {
+        char [][] currentTable = current.getTable();
+        if(Game.freeLocations(currentTable).size() == 1)
+        {
+            int maxId = current.getNodeId();
+            for(Node node : queue)
+            {
+                if(node.getNodeId() > maxId)
+                {
+                    queue.remove();
+                }
+            }
         }
     }
 
@@ -156,10 +175,12 @@ public class DecisionTree {
         buildNodeTable();
         if(!Tree.wins.isEmpty())
         {
-            Node winNode = Tree.wins.get(0);
-            Tree.wins.remove(0);
+            Node winNode = Tree.wins.poll();
             char[][] lookUpTable = getNodeToPlay(winNode, rootNode);
-            System.out.println("AI found a way to win!"+Arrays.deepToString(winNode.getTable()));
+            System.out.println("AI found a way to win!\nPrinting tree for win");
+            getNodeToPlay(winNode, rootNode);
+            System.out.println("Winning Table");
+            displayBoard(winNode);
             return getNextMove(lookUpTable);
         }
         else if(!Tree.loss.isEmpty())
@@ -174,11 +195,15 @@ public class DecisionTree {
         return getNextMove(lookUpTable);
     }
 
-    private char[][] getNodeToPlay(Node winNode, Node stopNode)
+    private char[][] getNodeToPlay(Node source, Node destination)
     {
-        Node parent = winNode.getParent();
-        if(parent.equals(stopNode) || stopNode.isRoot()) return winNode.getTable();
-        return getNodeToPlay(parent, stopNode);
+        Node parent = source.getParent();
+        displayBoard(parent);
+        if(!parent.equals(destination))
+        {
+            return getNodeToPlay(parent, destination);
+        }
+        return source.getTable();
     }
 
     public String getNextMove(char[][] lookUpTable)

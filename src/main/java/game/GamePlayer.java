@@ -45,6 +45,7 @@ public class GamePlayer {
                 }
                 row = Integer.parseInt(String.valueOf(computerInput.charAt(0)));
                 col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
+                System.out.println("=================\nActual Game Board\n=================\n");
                 game.update(DecisionTree.aiCharacter, row, col, gameTable);
                 System.out.println("\nPlayed "+DecisionTree.aiCharacter+" location "+row+""+col);
             }else
