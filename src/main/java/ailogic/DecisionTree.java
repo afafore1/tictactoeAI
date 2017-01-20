@@ -2,7 +2,7 @@ package ailogic;
 
 import game.Game;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Ayomitunde on 1/17/2017.
@@ -11,13 +11,15 @@ public class DecisionTree {
     private int MAX_TREE_LEVEL = 3;
     private char player;
     private int nodeId = 0;
+    private Queue<Node> queue;
 
     public DecisionTree(char player, char[][] table)
     {
-        this.player = player;
+        this.player = switchPlayer(player);
         Node rootNode = new Node(nodeId, table, true);
         nodeId+= 1;
-        rootNode.markVisited();
+        queue = new LinkedList<Node>();
+        queue.add(rootNode);
         buildNodeTable(rootNode);
     }
 
@@ -28,37 +30,71 @@ public class DecisionTree {
 
     public void buildNodeTable(Node node)
     {
+        node.markVisited();
+        HashMap<Integer, HashSet<Node>> marker = new HashMap<Integer, HashSet<Node>>(); //this is just used to keep track.. better way to do this ?
+        int lenToCheck = 3;
+        while(!queue.isEmpty() && MAX_TREE_LEVEL > 0)
+        {
+            Node current = queue.remove();
+            System.out.println("---------------------------------------------------------\n---------------------------------------------------------\n---------------------------------------------------------\nNew Child");
+            buildChildNodeTable(current);
+            if(marker.containsKey(current.getNodeId()))
+            {
+                HashSet<Node> children = current.getChildren();
+                HashSet<Node> allChildren = new HashSet<Node>(children);
+                allChildren.addAll(marker.get(current.getNodeId()));
+                marker.put(current.getNodeId(), allChildren);
+            }else
+            {
+                marker.put(current.getNodeId(), current.getChildren());
+            }
+            if(moveToNext(marker.get(current.getNodeId()), lenToCheck))
+            {
+                player = switchPlayer(player);
+                nodeId+= 1;
+                MAX_TREE_LEVEL--;
+                lenToCheck *= 2;
+            }
+            displayTree(current);
+            current.markVisited();
+        }
+    }
+
+    public void buildChildNodeTable(Node node)
+    {
         if(node.canAddChild())
         {
-            displayTree(node);
             ArrayList<String> freeLocations = getFreeLocations(node);
             int randomLocation = (int) (Math.random() * freeLocations.size());
-            player = switchPlayer(player);
-            if(!freeLocations.isEmpty())
+            if (!freeLocations.isEmpty())
             {
                 String chosenInput = freeLocations.get(randomLocation);
                 char[][] oldTable = node.getTable();
-                char [][] newTable = getNewTable(chosenInput, player, oldTable);
+                char[][] newTable = getNewTable(chosenInput, player, oldTable);
                 Node childNode = new Node(nodeId, newTable, false);
                 node.addChild(childNode);
+                queue.add(childNode);
             }
-            buildNodeTable(node);
-        }else
+            buildChildNodeTable(node);
+        }
+    }
+
+    private boolean moveToNext(HashSet<Node> children, int lenToCheck)
+    {
+        if(children.size() == lenToCheck) return true;
+        return false;
+    }
+
+    private boolean isAllMarked(int idToCheck, HashSet<Node> allChildren)
+    {
+        for(Node n : allChildren)
         {
-            nodeId+= 1;
-            if(MAX_TREE_LEVEL < 0)
+            if(n.canAddChild() == true)
             {
-                for(Node n : node.getChildren())
-                {
-                    if(!n.isVisited())
-                    {
-                        n.markVisited();
-                        buildNodeTable(n);
-                    }
-                }
-                MAX_TREE_LEVEL--;
+                return false;
             }
         }
+        return true;
     }
 
     public void displayTree(Node node)
@@ -74,8 +110,16 @@ public class DecisionTree {
     {
         int row = Integer.parseInt(String.valueOf(input.charAt(0)));
         int col = Integer.parseInt(String.valueOf(input.charAt(1)));
-        table[row][col] = value;
-        return table;
+        char [][] newTable = new char[table.length][table.length];
+        for(int i = 0; i < table.length; i++)
+        {
+            for(int j = 0; j < table.length; j++)
+            {
+                newTable[i][j] = table[i][j];
+            }
+        }
+        newTable[row][col] = value;
+        return newTable;
     }
 
     public char Evaluate(char [][] table)
