@@ -1,14 +1,18 @@
 package game;
 
 import ailogic.DecisionTree;
+import ailogic.Node;
+import ailogic.Tree;
 
 import java.awt.*;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
  * Created by Ayomitunde on 1/17/2017.
  */
 public class GamePlayer {
+    private static HashSet<char[][]> savedStates = new HashSet<char[][]>();
     private static String playAI(Game game, char player)
     {
         if(game.getWinner(game.getTable()) == ' ' || game.isTie(game.getTable()))
@@ -31,6 +35,7 @@ public class GamePlayer {
                     return "Game is a Tie";
                 }
                 DecisionTree decisionTree = new DecisionTree(player, gameTable);
+                savedStates.add(gameTable);
                 System.out.println("Computer is thinking ... !");
                 String computerInput = decisionTree.getNextMove();
                 if(computerInput == null)
@@ -40,9 +45,8 @@ public class GamePlayer {
                 }
                 row = Integer.parseInt(String.valueOf(computerInput.charAt(0)));
                 col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
-                char computerPlayer = Game.switchPlayer(player);
-                game.update(computerPlayer, row, col, gameTable);
-                System.out.println("\nPlayed "+computerPlayer+" location "+row+""+col);
+                game.update(DecisionTree.aiCharacter, row, col, gameTable);
+                System.out.println("\nPlayed "+DecisionTree.aiCharacter+" location "+row+""+col);
             }else
             {
                 System.out.println("Location "+row+""+col+" has been taken!\nLocations available are "+game.freeLocations(game.getTable()));
@@ -86,6 +90,7 @@ public class GamePlayer {
     {
         Game game = new Game();
         char player = Math.random() > .5 ? game.getPlayero() : game.getPlayerx();
+        DecisionTree.aiCharacter = Game.switchPlayer(player);
         playAI(game, player);
         System.out.println("Winner is "+game.getWinner(game.getTable()));
     }
