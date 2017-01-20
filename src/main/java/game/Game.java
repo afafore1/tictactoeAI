@@ -60,7 +60,7 @@ public class Game {
         displayBoard(table);
     }
 
-    protected boolean isTie(char[][] table)
+    public static boolean isTie(char[][] table)
     {
         for(int i = 0; i < table.length; i++)
         {

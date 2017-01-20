@@ -11,6 +11,7 @@ public class Node {
     private boolean isRoot;
     private boolean isVisited = false;
     private int nodeId;
+    private Node parent;
 
     public Node(int id, char[][] table, boolean isRoot)
     {
@@ -18,6 +19,17 @@ public class Node {
         nodeTable = table;
         this.isRoot = isRoot;
         children = new HashSet<Node>();
+        parent = null; // root will be null
+    }
+
+    public void setParent(Node p)
+    {
+        parent = p;
+    }
+
+    public Node getParent()
+    {
+        return parent;
     }
 
     public HashSet<Node> getChildren()

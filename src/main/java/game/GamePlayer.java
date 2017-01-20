@@ -26,13 +26,29 @@ public class GamePlayer {
             {
                 char[][] gameTable = game.getTable();
                 game.update(player, row, col, gameTable);
+                if(game.isTie(game.getTable()))
+                {
+                    return "Game is a Tie";
+                }
                 DecisionTree decisionTree = new DecisionTree(player, gameTable);
+                System.out.println("Computer is thinking ... !");
+                String computerInput = decisionTree.getNextMove();
+                if(computerInput == null)
+                {
+                    System.out.println("I don't have a move to make!!\nI give up");
+                    System.exit(1);
+                }
+                row = Integer.parseInt(String.valueOf(computerInput.charAt(0)));
+                col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
+                char computerPlayer = Game.switchPlayer(player);
+                game.update(computerPlayer, row, col, gameTable);
+                System.out.println("\nPlayed "+computerPlayer+" location "+row+""+col);
             }else
             {
                 System.out.println("Location "+row+""+col+" has been taken!\nLocations available are "+game.freeLocations(game.getTable()));
             }
 
-            //playAI(game, player);
+            playAI(game, player);
         }
         System.out.println("Printing game board");
         game.displayBoard(game.getTable());

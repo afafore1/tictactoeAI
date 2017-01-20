@@ -8,19 +8,25 @@ import java.util.*;
  * Created by Ayomitunde on 1/17/2017.
  */
 public class DecisionTree {
-    private int MAX_TREE_LEVEL = 3;
+    Node rootNode = null;
+    private int MAX_TREE_LEVEL = 8;
     private char player;
+    private char aiCharacter;
     private int nodeId = 0;
     private Queue<Node> queue;
+    private ArrayList<Node> wins = new ArrayList<Node>();
+    private ArrayList<Node> loss = new ArrayList<Node>();
+    private ArrayList<Node> draw = new ArrayList<Node>();
 
     public DecisionTree(char player, char[][] table)
     {
         this.player = switchPlayer(player);
-        Node rootNode = new Node(nodeId, table, true);
+        aiCharacter = player;
+        rootNode = new Node(nodeId, table, true);
         nodeId+= 1;
         queue = new LinkedList<Node>();
         queue.add(rootNode);
-        buildNodeTable(rootNode);
+        buildNodeTable();
     }
 
     private ArrayList<String> getFreeLocations(Node node)
@@ -28,15 +34,15 @@ public class DecisionTree {
         return Game.freeLocations(node.getTable());
     }
 
-    public void buildNodeTable(Node node)
+    public void buildNodeTable()
     {
-        node.markVisited();
         HashMap<Integer, HashSet<Node>> marker = new HashMap<Integer, HashSet<Node>>(); //this is just used to keep track.. better way to do this ?
         int lenToCheck = 3;
-        while(!queue.isEmpty() && MAX_TREE_LEVEL > 0)
+        while(!queue.isEmpty() && MAX_TREE_LEVEL > 0 && wins.isEmpty())
         {
             Node current = queue.remove();
-            System.out.println("---------------------------------------------------------\n---------------------------------------------------------\n---------------------------------------------------------\nNew Child");
+            if(current.isVisited()) continue;
+            //System.out.println("---------------------------------------------------------\n---------------------------------------------------------\n---------------------------------------------------------\nNew Child");
             buildChildNodeTable(current);
             if(marker.containsKey(current.getNodeId()))
             {
@@ -73,7 +79,19 @@ public class DecisionTree {
                 char[][] newTable = getNewTable(chosenInput, player, oldTable);
                 Node childNode = new Node(nodeId, newTable, false);
                 node.addChild(childNode);
+                childNode.setParent(node);
                 queue.add(childNode);
+                if(Game.getWinner(newTable) == aiCharacter)
+                {
+                    wins.add(childNode);
+                }else if(Game.getWinner(newTable) == switchPlayer(aiCharacter))
+                {
+                    loss.add(childNode);
+                }else if(Game.isTie(newTable))
+                {
+                    draw.add(childNode);
+                    childNode.markVisited();
+                }
             }
             buildChildNodeTable(node);
         }
@@ -83,18 +101,6 @@ public class DecisionTree {
     {
         if(children.size() == lenToCheck) return true;
         return false;
-    }
-
-    private boolean isAllMarked(int idToCheck, HashSet<Node> allChildren)
-    {
-        for(Node n : allChildren)
-        {
-            if(n.canAddChild() == true)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void displayTree(Node node)
@@ -122,14 +128,47 @@ public class DecisionTree {
         return newTable;
     }
 
-    public char Evaluate(char [][] table)
+    public String getNextMove()
     {
-        return Game.getWinner(table);
+        if(!wins.isEmpty())
+        {
+            Node winNode = wins.get(0);
+            char[][] lookUpTable = getNodeToPlay(winNode);
+            return getNextMove(lookUpTable);
+        }
+        else if(!loss.isEmpty())
+        {
+            Node lossNode = loss.get(0);
+            // have to avoid loss
+        }
+        int randomIndex = (int)(Math.random() * rootNode.getChildren().size());
+        char[][] lookUpTable = new ArrayList<Node>(rootNode.getChildren()).get(randomIndex).getTable(); // this is quite messy.. fix it!
+        System.out.println("Just playing around\nUsing this table "+Arrays.deepToString(lookUpTable));
+        System.out.println("Game Table is "+Arrays.deepToString(rootNode.getTable()));
+        return getNextMove(lookUpTable);
     }
 
-    public String getMove()
+    private char[][] getNodeToPlay(Node winNode)
     {
-        return "";
+        Node parent = winNode.getParent();
+        if(parent.isRoot()) return winNode.getTable();
+        return getNodeToPlay(parent);
+    }
+
+    public String getNextMove(char[][] lookUpTable)
+    {
+        char[][] gameTable = rootNode.getTable();
+        for(int i = 0; i < lookUpTable.length; i++)
+        {
+            for(int j = 0; j < lookUpTable.length; j++)
+            {
+                if(lookUpTable[i][j] != gameTable[i][j])
+                {
+                    return ""+i+""+j;
+                }
+            }
+        }
+        return null;
     }
 
     public static void displayBoard(Node node) {
