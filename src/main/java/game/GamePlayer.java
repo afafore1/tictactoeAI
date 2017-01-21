@@ -33,21 +33,26 @@ public class GamePlayer {
                 if(game.isTie(game.getTable()))
                 {
                     return "Game is a Tie";
-                }
-                DecisionTree decisionTree = new DecisionTree(player, gameTable);
-                savedStates.add(gameTable);
-                System.out.println("Computer is thinking ... !");
-                String computerInput = decisionTree.getNextMove();
-                if(computerInput == null)
+                }else if(game.getWinner(game.getTable()) == ' ')
                 {
-                    System.out.println("I don't have a move to make!!\nI give up");
-                    System.exit(1);
+                    DecisionTree decisionTree = new DecisionTree(player, gameTable);
+                    savedStates.add(gameTable);
+                    System.out.println("Computer is thinking ... !");
+                    String computerInput = decisionTree.getNextMove();
+                    if(computerInput == null)
+                    {
+                        System.out.println("I don't have a move to make!!\nI give up");
+                        System.exit(1);
+                    }
+                    row = Integer.parseInt(String.valueOf(computerInput.charAt(0)));
+                    col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
+                    System.out.println("=================\nActual Game Board\n=================\n");
+                    game.update(DecisionTree.aiCharacter, row, col, gameTable);
+                    System.out.println("\nPlayed "+DecisionTree.aiCharacter+" location "+row+""+col);
+                }else
+                {
+                    return String.valueOf(game.getWinner(game.getTable()));
                 }
-                row = Integer.parseInt(String.valueOf(computerInput.charAt(0)));
-                col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
-                System.out.println("=================\nActual Game Board\n=================\n");
-                game.update(DecisionTree.aiCharacter, row, col, gameTable);
-                System.out.println("\nPlayed "+DecisionTree.aiCharacter+" location "+row+""+col);
             }else
             {
                 System.out.println("Location "+row+""+col+" has been taken!\nLocations available are "+game.freeLocations(game.getTable()));
