@@ -165,9 +165,15 @@ public class DecisionTree {
         if(Tree.checkTableExist(rootNode.getTable()))
         {
             Node winNode = Tree.getWinNode();
+            Node lossNode = Tree.getLossNode(); //losing takes priority ?
+            if(lossNode != null)
+            {
+                Node lossTable = findNodeToPlay(lossNode, Tree.foundNode);
+               // return getNextMove(lookUpTable);
+            }
             if(winNode != null)
             {
-                char[][] lookUpTable = getNodeToPlay(winNode, Tree.foundNode);
+                char[][] lookUpTable = getLookUpTable(winNode, Tree.foundNode);
                 return getNextMove(lookUpTable);
             }
         }
@@ -176,9 +182,9 @@ public class DecisionTree {
         if(!Tree.wins.isEmpty())
         {
             Node winNode = Tree.wins.poll();
-            char[][] lookUpTable = getNodeToPlay(winNode, rootNode);
+            char[][] lookUpTable = getLookUpTable(winNode, rootNode);
             System.out.println("AI found a way to win!\nPrinting tree for win");
-            getNodeToPlay(winNode, rootNode);
+            getLookUpTable(winNode, rootNode);
             System.out.println("Winning Table");
             displayBoard(winNode);
             return getNextMove(lookUpTable);
@@ -195,15 +201,20 @@ public class DecisionTree {
         return getNextMove(lookUpTable);
     }
 
-    private char[][] getNodeToPlay(Node source, Node destination)
+    private char[][] getLookUpTable(Node source, Node destination)
+    {
+        return findNodeToPlay(source, destination).getTable();
+    }
+
+    private Node findNodeToPlay(Node source, Node destination)
     {
         Node parent = source.getParent();
         displayBoard(parent);
         if(!parent.equals(destination))
         {
-            return getNodeToPlay(parent, destination);
+            return findNodeToPlay(parent, destination);
         }
-        return source.getTable();
+        return source;
     }
 
     public String getNextMove(char[][] lookUpTable)

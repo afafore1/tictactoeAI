@@ -1,8 +1,15 @@
 package ailogic;
-
 import game.Game;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import static ailogic.DecisionTree.aiCharacter;
 
 /**
  * Created by Ayomitunde on 1/20/2017.
@@ -14,6 +21,7 @@ public class Tree {
     protected static HashSet<Node> allNodes = new HashSet<Node>();
     protected static Node foundNode = null;
     private static Node winNode = null;
+    private static Node lossNode = null;
 
 
     protected static boolean checkTableExist(char [][] tableToCheck)
@@ -24,6 +32,7 @@ public class Tree {
             {
                 foundNode = node;
                 getWinNode(node);
+                getLossNode(node);
                 return true;
             }
         }
@@ -42,7 +51,7 @@ public class Tree {
         return true;
     }
 
-    protected static void getWinNode(Node node)
+    private static void getNode(Node node, char character)
     {
         Queue<HashSet<Node>> children = new LinkedList<HashSet<Node>>();
         children.add(node.getChildren());
@@ -51,9 +60,15 @@ public class Tree {
             HashSet<Node> group = children.remove();
             for(Node c : group)
             {
-                if(Game.getWinner(c.getTable()) == DecisionTree.aiCharacter)
+                if(Game.getWinner(c.getTable()) == character)
                 {
-                    winNode = c;
+                    if(character == aiCharacter)
+                    {
+                        winNode = c;
+                    }else
+                    {
+                        lossNode = c;
+                    }
                 }else
                 {
                     children.add(c.getChildren());
@@ -62,8 +77,52 @@ public class Tree {
         }
     }
 
+    protected static void getWinNode(Node node)
+    {
+        getNode(node, aiCharacter);
+    }
+
+    protected static void getLossNode(Node node)
+    {
+        getNode(node, DecisionTree.switchPlayer(aiCharacter));
+    }
+
+    protected static Node getLossNode()
+    {
+        return lossNode;
+    }
+
     protected static Node getWinNode()
     {
         return winNode;
+    }
+
+    private static String getResourcePath()
+    {
+        try
+        {
+            URI resoucePathFile = System.class.getResource("/RESOURCE_PATH").toURI();
+            String resourcePath = Files.readAllLines(Paths.get(resoucePathFile)).get(0);
+            URI rootURI = new File("").toURI();
+            URI resourceURI = new File(resourcePath).toURI();
+            URI relativeResourceURI = rootURI.relativize(resourceURI);
+            return relativeResourceURI.getPath();
+        }catch(Exception e)
+        {
+            return null;
+        }
+    }
+    protected static void saveTree()
+    {
+        String path = getResourcePath()+"/tree.ser";
+        try
+        {
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+
+        }catch(IOException ioe)
+        {
+
+        }
     }
 }
