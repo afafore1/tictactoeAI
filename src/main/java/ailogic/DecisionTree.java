@@ -162,10 +162,16 @@ public class DecisionTree {
 
     public String getNextMove()
     {
+        Node lossNode = null; //losing takes priority ? yes prevent current loss
+        String block = Tree.getBlockPlayerWinLocation(rootNode.getTable(), switchPlayer(aiCharacter));
+        if(block != null)
+        {
+            return block;
+        }
         if(Tree.checkTableExist(rootNode.getTable()))
         {
             Node winNode = Tree.getWinNode();
-            Node lossNode = Tree.getLossNode(); //losing takes priority ?
+            lossNode = Tree.getLossNode();
             if(lossNode != null)
             {
                 Node lossTable = findNodeToPlay(lossNode, Tree.foundNode);
@@ -184,16 +190,16 @@ public class DecisionTree {
             Node winNode = Tree.wins.poll();
             char[][] lookUpTable = getLookUpTable(winNode, rootNode);
             System.out.println("AI found a way to win!\nPrinting tree for win");
-            getLookUpTable(winNode, rootNode);
             System.out.println("Winning Table");
             displayBoard(winNode);
             return getNextMove(lookUpTable);
         }
-        else if(!Tree.loss.isEmpty())
-        {
-            Node lossNode = Tree.loss.get(0);
-            // have to avoid loss
-        }
+        // this will be implemented later
+//        else if(!Tree.loss.isEmpty())
+//        {
+//            lossNode = Tree.loss.get(0);
+//            // have to avoid loss
+//        }
         int randomIndex = (int)(Math.random() * rootNode.getChildren().size());
         char[][] lookUpTable = new ArrayList<Node>(rootNode.getChildren()).get(randomIndex).getTable(); // this is quite messy.. fix it!
         System.out.println("Just playing around\nUsing this table "+Arrays.deepToString(lookUpTable));

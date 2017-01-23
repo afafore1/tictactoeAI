@@ -39,6 +39,71 @@ public class Tree {
         return false;
     }
 
+    protected static boolean currentIsLoss(Node node)
+    {
+        char playerCharacter = DecisionTree.switchPlayer(DecisionTree.aiCharacter);
+        if(nodeIsWin(node, playerCharacter)) return true;
+        return false;
+    }
+
+    private static boolean nodeIsWin(Node node, char player)
+    {
+        if(Game.getWinner(node.getTable()) == player) return true;
+        return false;
+    }
+
+    private static boolean isLegal(char[][] table, int row, int column)
+    {
+        if(table[row][column] != ' ') return false;
+        return true;
+    }
+
+    // this is quite long and messy..
+    protected static String getBlockPlayerWinLocation(char[][] table, char player)
+    {
+        for(int i = 0; i < table.length; i++)
+        {
+            if(table[1][i] == table[2][i] && table[1][i] == player)
+            {
+                if(isLegal(table, 0, i)) return ""+0+""+i;
+            }
+            if(table[0][i] == table[2][i] && table[0][i] == player)
+            {
+                if(isLegal(table, 1, i)) return ""+1+""+i;
+            }
+            if(table[0][i] == table[1][i] && table[0][i] == player)
+            {
+                if(isLegal(table, 2, i)) return ""+2+""+i;
+            }
+            if(table[i][1] == table[i][2] && table[i][1] == player)
+            {
+                if(isLegal(table, i, 0))return ""+i+""+0;
+            }
+            if(table[i][0] == table[i][2] && table[i][0] == player)
+            {
+                if(isLegal(table, i, 1)) return ""+i+""+1;
+            }
+            if(table[i][0] == table[i][1] && table[i][1] == player)
+            {
+                if(isLegal(table, i, 2)) return ""+i+""+2;
+            }
+        }
+        if(table[1][1] == table[2][2] && table[1][1] == player)
+        {
+            if(isLegal(table, 0, 0)) return ""+0+""+0;
+        }
+        if(table[0][0] == table[2][2] && table[0][0] == player)
+        {
+            if(isLegal(table, 1, 1)) return ""+1+""+1;
+        }
+        if(table[0][0] == table[1][1] && table[1][1] == player)
+        {
+            if(isLegal(table, 2, 2))return ""+2+""+2;
+        }
+
+        return null;
+    }
+
     private static boolean isEqual(char[][] table1, char[][] table2)
     {
         for(int i = 0; i < table1.length; i++)
