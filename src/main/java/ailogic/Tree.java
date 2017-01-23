@@ -96,6 +96,10 @@ public class Tree {
         {
             if(isLegal(table, 1, 1)) return ""+1+""+1;
         }
+        if(table[0][2] == table[2][0] && table[0][2] == player)
+        {
+            if(isLegal(table, 1, 1)) return ""+1+""+1;
+        }
         if(table[0][0] == table[1][1] && table[1][1] == player)
         {
             if(isLegal(table, 2, 2))return ""+2+""+2;
