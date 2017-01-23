@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0248e96-c409-4cb1-bed8-78d23e3dcc25" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ailogic/DecisionTree.java" afterPath="$PROJECT_DIR$/src/main/java/ailogic/DecisionTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ailogic/Tree.java" afterPath="$PROJECT_DIR$/src/main/java/ailogic/Tree.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,16 +19,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Tree.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Tree.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ailogic/Tree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="60" column="37" lean-forward="true" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
+            <state relative-caret-position="413">
+              <caret line="100" column="47" lean-forward="false" selection-start-line="100" selection-start-column="47" selection-end-line="100" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#621#627#0" expanded="true" />
-                <element signature="e#4598#4599#0" expanded="true" />
-                <element signature="e#4629#4630#0" expanded="true" />
+                <element signature="e#4737#4738#0" expanded="true" />
+                <element signature="e#4768#4769#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DecisionTree.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DecisionTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ailogic/DecisionTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
+            <state relative-caret-position="347">
               <caret line="196" column="41" lean-forward="false" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -135,8 +133,8 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ailogic/Node.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/Game.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ailogic/Tree.java" />
         <option value="$PROJECT_DIR$/src/main/java/ailogic/DecisionTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ailogic/Tree.java" />
       </list>
     </option>
   </component>
@@ -637,8 +635,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#621#627#0" expanded="true" />
-            <element signature="e#4598#4599#0" expanded="true" />
-            <element signature="e#4629#4630#0" expanded="true" />
+            <element signature="e#4737#4738#0" expanded="true" />
+            <element signature="e#4768#4769#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -699,8 +697,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#621#627#0" expanded="true" />
-            <element signature="e#4598#4599#0" expanded="true" />
-            <element signature="e#4629#4630#0" expanded="true" />
+            <element signature="e#4737#4738#0" expanded="true" />
+            <element signature="e#4768#4769#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -753,8 +751,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#621#627#0" expanded="true" />
-            <element signature="e#4598#4599#0" expanded="true" />
-            <element signature="e#4629#4630#0" expanded="true" />
+            <element signature="e#4737#4738#0" expanded="true" />
+            <element signature="e#4768#4769#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -807,8 +805,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#621#627#0" expanded="true" />
-            <element signature="e#4598#4599#0" expanded="true" />
-            <element signature="e#4629#4630#0" expanded="true" />
+            <element signature="e#4737#4738#0" expanded="true" />
+            <element signature="e#4768#4769#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -941,19 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ailogic/Tree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="60" column="37" lean-forward="true" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#621#627#0" expanded="true" />
-            <element signature="e#4598#4599#0" expanded="true" />
-            <element signature="e#4629#4630#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/game/GamePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -966,10 +951,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ailogic/DecisionTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
+        <state relative-caret-position="347">
           <caret line="196" column="41" lean-forward="false" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ailogic/Tree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="100" column="47" lean-forward="false" selection-start-line="100" selection-start-column="47" selection-end-line="100" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#621#627#0" expanded="true" />
+            <element signature="e#4737#4738#0" expanded="true" />
+            <element signature="e#4768#4769#0" expanded="true" />
           </folding>
         </state>
       </provider>
