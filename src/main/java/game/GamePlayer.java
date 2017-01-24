@@ -16,23 +16,29 @@ public class GamePlayer {
     private static HashSet<char[][]> savedStates = new HashSet<>();
 
     public static String playAI(Game game, char player, String guiInput) {
-        if (game.getWinner(game.getTable()) == ' ' || game.isTie(game.getTable())) {
+        if (game.getWinner(game.getTable()) == ' ' || game.isTie(game.getTable()))
+        {
             if (game.isTie(game.getTable())) {
                 JOptionPane.showMessageDialog(null, "Game is a Tie");
             }
             int row = Integer.parseInt(String.valueOf(guiInput.charAt(0)));
             int col = Integer.parseInt(String.valueOf(guiInput.charAt(1)));
 
-            if (game.isLegal(row, col)) {
+            if (game.isLegal(row, col))
+            {
                 char[][] gameTable = game.getTable();
                 game.update(player, row, col, gameTable);
-                if (game.isTie(game.getTable())) {
+                if (game.isTie(game.getTable()))
+                {
                     JOptionPane.showMessageDialog(null, "Game is a Tie");
-                } else if (game.getWinner(game.getTable()) == ' ') {
+                }
+                else if (game.getWinner(game.getTable()) == ' ')
+                {
                     DecisionTree decisionTree = new DecisionTree(player, gameTable);
                     savedStates.add(gameTable);
                     String computerInput = decisionTree.getNextMove();
-                    if (computerInput == null) {
+                    if (computerInput == null)
+                    {
                         JOptionPane.showMessageDialog(null, "I don't have a move to make!!\nI give up");
                         System.exit(1);
                     }
@@ -40,20 +46,21 @@ public class GamePlayer {
                     col = Integer.parseInt(String.valueOf(computerInput.charAt(1)));
                     game.update(DecisionTree.aiCharacter, row, col, gameTable);
                     return computerInput;
-                } else {
-                    if(Game.getWinner(game.getTable()) == player)
-                    {
-                        JOptionPane.showMessageDialog(null, "AI Lost!!");
-                    }else
-                    {
-                        JOptionPane.showMessageDialog(null, "AI Won!!");
-                    }
-                    System.exit(1);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Location " + row + "" + col + " has been taken!\nLocations available are " + game.freeLocations(game.getTable()));
-                System.out.println("Location " + row + "" + col + " has been taken!\nLocations available are " + game.freeLocations(game.getTable()));
             }
+        }
+        else
+        {
+            if(Game.getWinner(game.getTable()) == player)
+            {
+                JOptionPane.showMessageDialog(null, "AI Lost!!");
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "AI Won!!");
+            }
+            System.exit(1);
         }
         return null;
     }

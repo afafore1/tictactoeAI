@@ -164,37 +164,40 @@ public class GUI extends javax.swing.JFrame {
 
     private void play(String computerInput)
     {
-        switch (computerInput)
+        if(computerInput != null)
         {
-            case "00":
-                btn00.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "01":
-                btn01.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "02":
-                btn02.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "10":
-                btn10.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "11":
-                btn11.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "12":
-                btn12.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "20":
-                btn20.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "21":
-                btn21.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
-            case "22":
-                btn22.setText(String.valueOf(DecisionTree.aiCharacter));
-                break;
+            switch (computerInput)
+            {
+                case "00":
+                    btn00.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "01":
+                    btn01.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "02":
+                    btn02.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "10":
+                    btn10.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "11":
+                    btn11.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "12":
+                    btn12.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "20":
+                    btn20.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "21":
+                    btn21.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
+                case "22":
+                    btn22.setText(String.valueOf(DecisionTree.aiCharacter));
+                    break;
                 default:
                     break;
+            }
         }
     }
 
