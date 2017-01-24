@@ -28,17 +28,17 @@ public class Game {
         }
     }
 
-    protected char getPlayerx()
+    public char getPlayerx()
     {
         return PLAYERX;
     }
 
-    protected char getPlayero()
+    public char getPlayero()
     {
         return PLAYERO;
     }
 
-    protected static char switchPlayer(char player)
+    public static char switchPlayer(char player)
     {
         return player == PLAYERO ? PLAYERX : PLAYERO;
     }
