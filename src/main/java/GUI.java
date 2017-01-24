@@ -2,6 +2,8 @@ import ailogic.DecisionTree;
 import game.Game;
 import game.GamePlayer;
 
+import javax.swing.*;
+
 /**
  * Created by Ayomitunde on 1/23/2017.
  */
@@ -198,6 +200,17 @@ public class GUI extends javax.swing.JFrame {
                 default:
                     break;
             }
+        }
+        if(game.getWinner(game.getTable()) != ' ')
+        {
+            if(Game.getWinner(game.getTable()) == player)
+            {
+                JOptionPane.showMessageDialog(null, "AI Lost!!");
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "AI Won!!");
+            }
+            System.exit(1);
         }
     }
 

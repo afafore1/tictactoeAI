@@ -49,7 +49,7 @@ public class Game {
         return true;
     }
 
-    protected char[][] getTable()
+    public char[][] getTable()
     {
         return this.Initialtable;
     }

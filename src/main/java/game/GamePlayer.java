@@ -31,8 +31,21 @@ public class GamePlayer {
                 if (game.isTie(game.getTable()))
                 {
                     JOptionPane.showMessageDialog(null, "Game is a Tie");
+                    System.exit(1);
                 }
-                else if (game.getWinner(game.getTable()) == ' ')
+                else if(game.getWinner(game.getTable()) != ' ')
+                {
+                    // repeating code here... refactor!
+                    if(Game.getWinner(game.getTable()) == player)
+                    {
+                        JOptionPane.showMessageDialog(null, "AI Lost!!");
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(null, "AI Won!!");
+                    }
+                    System.exit(1);
+                }
+                else
                 {
                     DecisionTree decisionTree = new DecisionTree(player, gameTable);
                     savedStates.add(gameTable);

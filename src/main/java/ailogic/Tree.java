@@ -46,7 +46,7 @@ public class Tree {
         return false;
     }
 
-    private static boolean nodeIsWin(Node node, char player)
+    protected static boolean nodeIsWin(Node node, char player)
     {
         if(Game.getWinner(node.getTable()) == player) return true;
         return false;
