@@ -164,9 +164,15 @@ public class DecisionTree {
     {
         Node lossNode = null; //losing takes priority ? yes prevent current loss
         String block = Tree.getBlockPlayerWinLocation(rootNode.getTable(), switchPlayer(aiCharacter));
-        if(block != null)
+        String win = Tree.getBlockPlayerWinLocation(rootNode.getTable(), aiCharacter);
+        if(block != null && win == null)
         {
             return block;
+        }
+        // this should be removed
+        if(win != null)
+        {
+            return win;
         }
         if(Tree.checkTableExist(rootNode.getTable()))
         {
