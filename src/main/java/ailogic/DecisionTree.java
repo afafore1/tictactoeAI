@@ -20,7 +20,7 @@ public class DecisionTree {
         this.player = switchPlayer(player);
         rootNode = new Node(nodeId, createNodeId(table), table, true);
         nodeId+= 1;
-        queue = new LinkedList<Node>();
+        queue = new LinkedList<>();
         queue.add(rootNode);
     }
 

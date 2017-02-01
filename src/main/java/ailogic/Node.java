@@ -24,7 +24,7 @@ public class Node {
         nodeTable = table;
         this.isRoot = isRoot;
         this.uniqueId = uniqueId;
-        children = new HashSet<Node>();
+        children = new HashSet<>();
         parent = null; // root will be null
     }
 
@@ -62,9 +62,9 @@ public class Node {
     {
         if(this.isRoot)
         {
-            return children.size() < 3;
+            return children.size() < 4;
         }
-        return children.size() < 2;
+        return children.size() < 3;
     }
 
     public void addChild(Node node)
