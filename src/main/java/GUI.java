@@ -3,6 +3,7 @@ import game.Game;
 import game.GamePlayer;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Ayomitunde on 1/23/2017.
@@ -161,7 +162,15 @@ public class GUI extends javax.swing.JFrame {
 
     private void setText(javax.swing.JButton btn)
     {
+        btn.setFont(new Font("Arial", Font.BOLD, 40));
         if(btn.getText() == "") btn.setText(String.valueOf(player));
+
+    }
+
+    private void setAIText(javax.swing.JButton btn, String value)
+    {
+        btn.setFont(new Font("Arial", Font.BOLD, 40));
+        btn.setText(value);
     }
 
     private void play(String computerInput)
@@ -171,31 +180,31 @@ public class GUI extends javax.swing.JFrame {
             switch (computerInput)
             {
                 case "00":
-                    btn00.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn00, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "01":
-                    btn01.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn01, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "02":
-                    btn02.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn02, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "10":
-                    btn10.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn10, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "11":
-                    btn11.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn11, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "12":
-                    btn12.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn12, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "20":
-                    btn20.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn20, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "21":
-                    btn21.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn21, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 case "22":
-                    btn22.setText(String.valueOf(DecisionTree.aiCharacter));
+                    setAIText(btn22, String.valueOf(DecisionTree.aiCharacter));
                     break;
                 default:
                     break;
@@ -272,11 +281,6 @@ public class GUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

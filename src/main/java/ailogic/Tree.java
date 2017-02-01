@@ -15,7 +15,7 @@ import static ailogic.DecisionTree.aiCharacter;
  * Created by Ayomitunde on 1/20/2017.
  */
 public class Tree {
-    protected static Queue<Node> wins = new LinkedList<Node>();
+    protected static Queue<Node> wins = new LinkedList<>();
     protected static ArrayList<Node> loss = new ArrayList<Node>();
     protected static ArrayList<Node> draw = new ArrayList<Node>();
     protected static HashSet<Node> allNodes = new HashSet<Node>();

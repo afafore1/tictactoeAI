@@ -207,7 +207,7 @@ public class DecisionTree {
 //            // have to avoid loss
 //        }
         int randomIndex = (int)(Math.random() * rootNode.getChildren().size());
-        char[][] lookUpTable = new ArrayList<Node>(rootNode.getChildren()).get(randomIndex).getTable(); // this is quite messy.. fix it!
+        char[][] lookUpTable = new ArrayList<>(rootNode.getChildren()).get(randomIndex).getTable(); // this is quite messy.. fix it!
         System.out.println("Just playing around\nUsing this table "+Arrays.deepToString(lookUpTable));
         System.out.println("Game Table is "+Arrays.deepToString(rootNode.getTable()));
         return getNextMove(lookUpTable);
